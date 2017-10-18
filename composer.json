@@ -1,5 +1,5 @@
 {
-    "name": "jtn/email-domain",
+    "name": "jtn/laravel-validate-email-domain",
     "description": "Validates email addresses belong to the given domain",
     "type": "library",
     "keywords": [ "laravel", "validation", "email", "email domain", "validator" ],

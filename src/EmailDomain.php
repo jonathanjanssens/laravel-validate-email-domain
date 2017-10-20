@@ -12,9 +12,33 @@ class EmailDomain implements Rule
      */
     protected $domain;
 
+    /**
+     * @var bool
+     */
+    protected $strict = true;
+
     public function __construct($domain)
     {
         $this->domain = $domain;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function nonStrict()
+    {
+        $this->strict = false;
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function strict()
+    {
+        $this->strict = true;
+        return $this;
     }
 
     /**
@@ -76,9 +100,11 @@ class EmailDomain implements Rule
     protected function wildcardPasses($value, $validDomain)
     {
         $domain = str_replace('.', '\.', $validDomain);
-        $regex = str_replace('*', '[^\.\n\r]+', $domain);
-        $regex = '/^' . $regex . '$/';
 
+        $pattern = $this->strict ? '[^\.\n\r]+' : '.*';
+        $regex = str_replace('*', $pattern, $domain);
+
+        $regex = '/^' . $regex . '$/';
         return preg_match($regex, $value) === 1;
     }
 

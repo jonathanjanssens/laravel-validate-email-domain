@@ -47,3 +47,28 @@ $this->validate(request()->all(), [
     ]
 ])
 ```
+
+## Strict Mode
+
+Strict mode can be disabled to match wildcard domains. This is
+useful if you would like to match all subdomains under 
+`example.com`.
+
+The following example will match `example.com` domains and 
+any length of subdomains under it.
+
+```
+$domainRule = new EmailDomain(['example.com', ['*.example.com']]);
+$this->validate(request()->all(), [
+    'email' => ['email', $domainRule->nonStrict()]
+])
+```
+
+### Changelog
+
+### 1.1.0
+
+- Add support for strict matching 
+
+### 1.0.0
+- Initial release, support for simple domains and wildcard
